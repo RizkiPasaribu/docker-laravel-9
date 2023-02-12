@@ -6,8 +6,9 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: php-fpm-larvel
+    image: php:8.2.1-fpm
     container_name: app
+    user: "1000:1001"
     restart: unless-stopped
     # tty: true
     environment:
