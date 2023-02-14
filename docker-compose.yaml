@@ -3,9 +3,9 @@ services:
   
   #PHP Service
   app:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: php:8.2.1-fpm
     container_name: app
     user: "1000:1001"
