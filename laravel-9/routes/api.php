@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Str;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/tes', function () {
+        return 'Suskses';
+    });
+});
+
+
+
+Route::post('/login', function (Request $request) {
+    $credentials = $request->only('email', 'password');
+    if (Auth::attempt($credentials)) {
+        // Authentication passed...
+        return User::where('id', Auth::id())->first()->createToken('Test')->accessToken;
+    }
+    return "Username Or Password Wrong";
 });

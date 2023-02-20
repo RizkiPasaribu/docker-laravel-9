@@ -2,7 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 class Authenticate extends Middleware
 {
@@ -15,7 +18,12 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            return redirect('login');
         }
+    }
+
+    protected function unauthenticated($request, array $guards)
+    {
+        abort(response()->json(['error' => 'Unauthenticated.', 'code'=>401], 401));
     }
 }
