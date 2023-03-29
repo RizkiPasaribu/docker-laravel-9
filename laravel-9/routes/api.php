@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Laravel\Passport\RefreshTokenRepository;
+use Laravel\Passport\TokenRepository;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,19 +19,17 @@ use App\Models\User;
 |
 */
 
+
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/tes', function () {
-        return 'Suskses';
+
+    /**
+     * revoke kedua token, access token dan refresh token
+     */
+    Route::post('/logout', function () {
+        $tokenRepository = app(TokenRepository::class);
+        $refreshTokenRepository = app(RefreshTokenRepository::class);
+        $tokenId = Auth::user()->token()->id;
+        $tokenRepository->revokeAccessToken($tokenId);
+        $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($tokenId);
     });
-});
-
-
-
-Route::post('/login', function (Request $request) {
-    $credentials = $request->only('email', 'password');
-    if (Auth::attempt($credentials)) {
-        // Authentication passed...
-        return User::where('id', Auth::id())->first()->createToken('Test')->accessToken;
-    }
-    return "Username Or Password Wrong";
 });

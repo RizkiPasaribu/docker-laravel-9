@@ -43,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime'
     ];
+
+    /**
+     * set ketika login passpot untuk password grant type dia ngambil name sebagi username nya bukan email :)
+     */
+    public function findForPassport(string $name): User
+    {
+        return $this->where('name', $name)->first();
+    }
 }

@@ -41,6 +41,7 @@ services:
   #Postgres Service
   db:
     image: postgres
+    container_name: postgres
     # restart: always
     environment:
       POSTGRES_PASSWORD: example
@@ -52,10 +53,11 @@ services:
   #pg admin for phppgadmin
   pgadmin:
     image: dpage/pgadmin4
+    container_name: pgadmin
     # restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: user@domain.com
-      PGADMIN_DEFAULT_PASSWORD: test
+      PGADMIN_DEFAULT_EMAIL: admin
+      PGADMIN_DEFAULT_PASSWORD: 12345678
     ports:
       - 5050:80
     networks:
@@ -65,6 +67,7 @@ services:
 
   adminer:
     image: adminer
+    container_name: adminer
     # restart: always
     ports:
       - 8080:8080
