@@ -44,7 +44,7 @@ services:
     container_name: postgres
     # restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: 12345678
     networks:
       - app-network
     depends_on:
@@ -56,7 +56,7 @@ services:
     container_name: pgadmin
     # restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
       PGADMIN_DEFAULT_PASSWORD: 12345678
     ports:
       - 5050:80

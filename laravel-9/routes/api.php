@@ -32,4 +32,8 @@ Route::middleware(['auth:api'])->group(function () {
         $tokenRepository->revokeAccessToken($tokenId);
         $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($tokenId);
     });
+
+    Route::get('/tes', function () {
+        return 'tes';
+    });
 });
