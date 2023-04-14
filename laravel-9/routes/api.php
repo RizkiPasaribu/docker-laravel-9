@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\api\StudentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use App\Models\User;
 use Laravel\Passport\RefreshTokenRepository;
 use Laravel\Passport\TokenRepository;
 
@@ -32,6 +30,10 @@ Route::middleware(['auth:api'])->group(function () {
         $tokenRepository->revokeAccessToken($tokenId);
         $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($tokenId);
     });
+
+    Route::resource('student', StudentController::class)->only([
+        'store', 'update', 'destroy', 'show', 'index'
+    ]);
 
     Route::get('/tes', function () {
         return 'tes';

@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('student_courses', function (Blueprint $table) {
-            $table->uuid()->primary();
-            $table->uuid('student_uuid')->nullable();
-            $table->uuid('course_uuid')->nullable();
-            $table->foreign('student_uuid')->references('uuid')->on('students');
-            $table->foreign('course_uuid')->references('uuid')->on('courses');
+            $table->uuid('id')->primary();
+            $table->uuid('student_id')->nullable();
+            $table->uuid('course_id')->nullable();
+            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('course_id')->references('id')->on('courses');
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

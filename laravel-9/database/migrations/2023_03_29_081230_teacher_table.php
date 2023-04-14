@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('teachers', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->string('nama');
             $table->string('nid');
             $table->string('alamat');
-            $table->uuid('student_uuid')->nullable();
-            $table->foreign('student_uuid')->references('uuid')->on('students');
+            $table->uuid('student_id')->nullable();
+            $table->foreign('student_id')->references('id')->on('students');
             $table->softDeletes()->nullable();
             $table->timestamps();
         });
