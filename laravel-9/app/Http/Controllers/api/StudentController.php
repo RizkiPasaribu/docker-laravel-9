@@ -15,7 +15,9 @@ class StudentController extends Controller
      * @param  \App\Repositories\StudentRepository $studentRepo
      * @return void
      */
-    function __construct(protected StudentRepository $studentRepo){}
+    function __construct(protected StudentRepository $studentRepo)
+    {
+    }
 
     /**
      * index
@@ -23,9 +25,10 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request; $request
      * @return \App\Repositories\StudentRepository $studentRepo
      */
-    public function index(Request $request){
-        $request->validate(['limit'=>'integer|max:200']);
-        return $this->studentRepo->show_student($request->limit);
+    public function index(Request $request)
+    {
+        $request->validate(['limit' => 'integer|max:200']);
+        return $this->studentRepo->show_all_student($request->limit);
     }
 
     /**
@@ -34,7 +37,8 @@ class StudentController extends Controller
      * @param \App\Http\Requests\StudentRequest $request
      * @return App\Repositories\StudentRepository $studentRepo
      */
-    public function store(StudentRequest $request){
+    public function store(StudentRequest $request)
+    {
         return $this->studentRepo->store($request);
     }
 
@@ -44,7 +48,8 @@ class StudentController extends Controller
      * @param String $student_id
      * @return App\Repositories\StudentRepository $studentRepo
      */
-    public function destroy($student_id){
+    public function destroy($student_id)
+    {
         return  $this->studentRepo->destroy($student_id);
     }
 
@@ -56,7 +61,19 @@ class StudentController extends Controller
      * @param \App\Http\Requests\StudentRequest $request
      * @return App\Repositories\StudentRepository $studentRepo
      */
-    public function update($student_id, StudentRequest $request){
-        return $this->studentRepo->udpate($student_id,$request);
+    public function update($student_id, StudentRequest $request)
+    {
+        return $this->studentRepo->udpate($student_id, $request);
+    }
+
+    /**
+     * show
+     *
+     * @param  String $student_id
+     * @return App\Repositories\StudentRepository $studentRepo
+     */
+    public function show($student_id)
+    {
+        return $this->studentRepo->show_student($student_id);
     }
 }

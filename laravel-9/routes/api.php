@@ -31,11 +31,7 @@ Route::middleware(['auth:api'])->group(function () {
         $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($tokenId);
     });
 
-    Route::resource('student', StudentController::class)->only([
-        'store', 'update', 'destroy', 'show', 'index'
+    Route::resource('student', StudentController::class)->except([
+        'create', 'edit'
     ]);
-
-    Route::get('/tes', function () {
-        return 'tes';
-    });
 });

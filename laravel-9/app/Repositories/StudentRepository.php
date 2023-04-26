@@ -5,17 +5,19 @@ namespace App\Repositories;
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
 
-class StudentRepository{
+class StudentRepository
+{
 
 
     /**
-     * Show_student
+     * Show_all_student
      *
      * @param  Integer $limit
      * @param  String $id
      * @return \App\Models\Student::paginate
      */
-    public function show_student ($limit=25, $id = null){
+    public function show_all_student($limit = 25, $id = null)
+    {
         return Student::paginate($limit);
     }
 
@@ -37,9 +39,9 @@ class StudentRepository{
      *
      * @param  String $student_id
      * @param  \App\Http\Requests\StudentRequest $request
-     * @return
+     * @return \Illuminate\Http\Response
      */
-    public function udpate($student_id,StudentRequest $request)
+    public function udpate($student_id, StudentRequest $request)
     {
         $student = Student::find($student_id);
         if (!$student) {
@@ -58,21 +60,32 @@ class StudentRepository{
      * Destroy
      *
      * @param String $student_id
-     * @return \Illuminate\Http\Response|String
+     * @return \Illuminate\Http\Response
      */
     public function destroy($student_id)
     {
         $student = Student::find($student_id);
-        if(!$student){
+        if (!$student) {
             return response()->not_found();
-        }else{
+        } else {
             $student->delete();
             return response()->deleted();
         }
     }
 
-    public function show($id)
+    /**
+     * show_student
+     *
+     * @param  String $student_id
+     * @return \Illuminate\Http\Response
+     */
+    public function show_student($student_id)
     {
-        //
+        $student = Student::find($student_id);
+        if (!$student) {
+            return response()->not_found();
+        } else {
+            return response()->json($student);
+        }
     }
 }
