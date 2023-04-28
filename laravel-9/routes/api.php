@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\api\StudentController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\api\UserController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Passport\RefreshTokenRepository;
-use Laravel\Passport\TokenRepository;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +20,14 @@ use Laravel\Passport\TokenRepository;
 Route::middleware(['auth:api'])->group(function () {
 
     /**
+     * Routing for logout
      * revoke kedua token, access token dan refresh token
      */
-    Route::post('/logout', function () {
-        $tokenRepository = app(TokenRepository::class);
-        $refreshTokenRepository = app(RefreshTokenRepository::class);
-        $tokenId = Auth::user()->token()->id;
-        $tokenRepository->revokeAccessToken($tokenId);
-        $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($tokenId);
-    });
+    Route::post('/logout', [UserController::class,'logout']);
 
+    /**
+     * Student routing
+     */
     Route::resource('student', StudentController::class)->except([
         'create', 'edit'
     ]);
