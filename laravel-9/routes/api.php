@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\StudentController;
+use App\Http\Controllers\api\TeacherController;
 use App\Http\Controllers\api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,12 @@ Route::middleware(['auth:api'])->group(function () {
      * Student routing
      */
     Route::resource('student', StudentController::class)->except([
+        'create', 'edit'
+    ]);
+    /**
+     * Student routing
+     */
+    Route::resource('teacher', TeacherController::class)->except([
         'create', 'edit'
     ]);
 });

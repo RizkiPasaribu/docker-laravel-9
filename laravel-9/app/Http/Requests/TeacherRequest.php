@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StudentRequest extends FormRequest
+class TeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,20 +25,8 @@ class StudentRequest extends FormRequest
     {
         return [
             'nama' => 'required',
-            'nim' => 'required',
-            'kelas' => 'required',
+            'nid' => 'required',
             'alamat' => 'required',
-            'teacher_id'=>'required'
         ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [];
     }
 }

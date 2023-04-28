@@ -20,7 +20,7 @@ class StudentController extends Controller
     }
 
     /**
-     * index
+     * Get All Student
      *
      * @param  \Illuminate\Http\Request; $request
      * @return \App\Repositories\StudentRepository $studentRepo
@@ -63,7 +63,7 @@ class StudentController extends Controller
      */
     public function update($student_id, StudentRequest $request)
     {
-        return $this->studentRepo->udpate($student_id, $request);
+        return $this->studentRepo->update($student_id, $request);
     }
 
     /**

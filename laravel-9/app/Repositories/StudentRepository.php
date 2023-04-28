@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
+use App\Models\Teacher;
 
 class StudentRepository
 {
@@ -13,10 +14,9 @@ class StudentRepository
      * Show_all_student
      *
      * @param  Integer $limit
-     * @param  String $id
      * @return \App\Models\Student::paginate
      */
-    public function show_all_student($limit = 25, $id = null)
+    public function show_all_student($limit = 25,)
     {
         return Student::paginate($limit);
     }
@@ -41,16 +41,18 @@ class StudentRepository
      * @param  \App\Http\Requests\StudentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function udpate($student_id, StudentRequest $request)
+    public function update($student_id, StudentRequest $request)
     {
         $student = Student::find($student_id);
-        if (!$student) {
-            return response()->not_found();
+        $teacher = Teacher::find($request->teacher_id);
+        if (!$student || !$teacher) {
+            return response()->not_found("Student or Teacher");
         } else {
             $student->nama = $request->nama;
             $student->kelas = $request->kelas;
             $student->nim = $request->nim;
             $student->alamat = $request->alamat;
+            $student->teacher_id = $request->teacher_id;
             $student->save();
             return response()->updated($student);
         }
@@ -66,7 +68,7 @@ class StudentRepository
     {
         $student = Student::find($student_id);
         if (!$student) {
-            return response()->not_found();
+            return response()->not_found("Student");
         } else {
             $student->delete();
             return response()->deleted();
@@ -83,7 +85,7 @@ class StudentRepository
     {
         $student = Student::find($student_id);
         if (!$student) {
-            return response()->not_found();
+            return response()->not_found("Student");
         } else {
             return response()->json($student);
         }

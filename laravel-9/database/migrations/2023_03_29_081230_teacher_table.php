@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nid');
             $table->string('alamat');
-            $table->uuid('student_id')->nullable();
-            $table->foreign('student_id')->references('id')->on('students');
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

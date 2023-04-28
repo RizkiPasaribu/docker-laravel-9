@@ -22,6 +22,7 @@ class Student extends Model
         'nim',
         'kelas',
         'alamat',
+        'teacher_id'
     ];
 
     /**

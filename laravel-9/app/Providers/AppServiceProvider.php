@@ -43,10 +43,10 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Setting untuk response global json not found
          */
-        Response::macro('not_found', function () {
+        Response::macro('not_found', function ($massage) {
             return response()->json([
                 "code" => 404,
-                "message" => "Data Not Found",
+                "message" => "Data $massage Not Found",
             ], 404);
         });
 
