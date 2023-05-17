@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Http\Requests\StudentRequest;
+use App\Models\Course;
 use App\Models\Student;
 use App\Models\Teacher;
 
@@ -18,7 +19,7 @@ class StudentRepository
      */
     public function show_all_student($limit = 25,)
     {
-        return Student::paginate($limit);
+        return Student::with('courses')->paginate($limit);
     }
 
 
@@ -45,14 +46,16 @@ class StudentRepository
     {
         $student = Student::find($student_id);
         $teacher = Teacher::find($request->teacher_id);
-        if (!$student || !$teacher) {
-            return response()->not_found("Student or Teacher");
+        $course = Course::find($request->course_id);
+        if (!$student || !$teacher || !$course) {
+            return response()->not_found("Student, Teacher and Course");
         } else {
             $student->nama = $request->nama;
             $student->kelas = $request->kelas;
             $student->nim = $request->nim;
             $student->alamat = $request->alamat;
             $student->teacher_id = $request->teacher_id;
+            $student->courses()->attach($request->course_id);
             $student->save();
             return response()->updated($student);
         }
@@ -83,7 +86,7 @@ class StudentRepository
      */
     public function show_student($student_id)
     {
-        $student = Student::find($student_id);
+        $student = Student::with('courses')->find($student_id);
         if (!$student) {
             return response()->not_found("Student");
         } else {

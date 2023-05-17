@@ -9,3 +9,10 @@
 - php artisan migrate
 - php artisan passport:install --uuids
 - php artisan db:seed --class=DatabaseSeeder
+
+# Catatan rizki
+
+- Macros berguna untuk mengatur semua respon json yang di atur app provider service
+- Many to many
+- one to many
+- Service Container

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
 
@@ -31,7 +32,8 @@ class Student extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'deleted_at'
+        'deleted_at',
+        // 'privot'
     ];
 
     /**
@@ -40,5 +42,14 @@ class Student extends Model
     public function newUniqueId(): string
     {
         return (string) Uuid::uuid4();
+    }
+
+    /**
+     * Many To Many Relation Ship
+     * The roles that belong to the user.
+     */
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'student_courses', 'student_id', 'course_id');
     }
 }

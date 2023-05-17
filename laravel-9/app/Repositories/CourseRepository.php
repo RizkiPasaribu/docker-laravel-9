@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\CourseRequest;
 use App\Models\Course;
+use App\Models\Student;
 
 class CourseRepository
 {
@@ -15,7 +16,7 @@ class CourseRepository
      */
     public function show_all_course($limit = 25,)
     {
-        return Course::paginate($limit);
+        return Course::with('students')->paginate($limit);
     }
 
     /**
@@ -55,7 +56,7 @@ class CourseRepository
      */
     public function show_course($course_id)
     {
-        $course = Course::find($course_id);
+        $course = Course::with('students')->find($course_id);
         if (!$course) {
             return response()->not_found("Course");
         } else {
@@ -72,12 +73,14 @@ class CourseRepository
      */
     public function update($course_id, courseRequest $request)
     {
-        $course = course::find($course_id);
-        if (!$course) {
-            return response()->not_found("course or Teacher");
+        $course = Course::find($course_id);
+        $student = Student::find($request->student_id);
+        if (!$course || $student) {
+            return response()->not_found("Course or Student");
         } else {
             $course->nama = $request->nama;
             $course->code = $request->code;
+            $course->students()->attach($request->student_id);
             $course->save();
             return response()->updated($course);
         }
