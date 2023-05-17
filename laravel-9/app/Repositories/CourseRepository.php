@@ -1,70 +1,85 @@
 <?php
-use Illuminate\Http\Request;
 
-class CourseRepository{
+namespace App\Repositories;
+
+use App\Http\Requests\CourseRequest;
+use App\Models\Course;
+
+class CourseRepository
+{
     /**
-     * Show the form for creating a new resource.
+     * Show_all_course
      *
-     * @return \Illuminate\Http\Response
+     * @param  Integer $limit
+     * @return \App\Models\Course
      */
-    public function create()
+    public function show_all_course($limit = 25,)
     {
-        //
+        return Course::paginate($limit);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \App\Http\Requests\CourseRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        //
+        $validator = $request->validated();
+        return response()->create(Course::create($validator));
     }
 
     /**
-     * Display the specified resource.
+     * Destroy
      *
-     * @param  int  $id
+     * @param String $course_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function destroy($course_id)
     {
-        //
+        $course = Course::find($course_id);
+        if (!$course) {
+            return response()->not_found("Course");
+        } else {
+            $course->delete();
+            return response()->deleted();
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * show_course
      *
-     * @param  int  $id
+     * @param  String $course_id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show_course($course_id)
     {
-        //
+        $course = Course::find($course_id);
+        if (!$course) {
+            return response()->not_found("Course");
+        } else {
+            return response()->json($course);
+        }
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  String $course_id
+     * @param  \App\Http\Requests\courseRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($course_id, courseRequest $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $course = course::find($course_id);
+        if (!$course) {
+            return response()->not_found("course or Teacher");
+        } else {
+            $course->nama = $request->nama;
+            $course->code = $request->code;
+            $course->save();
+            return response()->updated($course);
+        }
     }
 }

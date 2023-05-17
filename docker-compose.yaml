@@ -6,7 +6,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: php-fpm-laravel
+    image: app
     container_name: app
     user: "1000:1001"
     # restart: unless-stopped

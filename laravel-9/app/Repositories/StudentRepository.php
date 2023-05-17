@@ -14,7 +14,7 @@ class StudentRepository
      * Show_all_student
      *
      * @param  Integer $limit
-     * @return \App\Models\Student::paginate
+     * @return \App\Models\Student
      */
     public function show_all_student($limit = 25,)
     {
