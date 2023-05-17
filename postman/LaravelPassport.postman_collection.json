@@ -1,0 +1,818 @@
+{
+	"info": {
+		"_postman_id": "148a17da-0c3e-41f9-aa78-6c3ef0335296",
+		"name": "LaravelPassport",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26184305"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5OGU5MjVkZS01YTRmLTRiMjYtYWU0ZC1iYTY2MzM2MDJlNDkiLCJqdGkiOiJmM2JhYzk3YzA0NzA2ODUxMTYxODY1NGFlMzkyYzE2ODEyMjU4ZjdlMDE0MjY2YWUwNTZmOWFkY2E0ZTFjNGYxNWI5ZjliYWFlMjIyMDQ3MSIsImlhdCI6MTY4MjY1MzYxOS41MTAyMzQsIm5iZiI6MTY4MjY1MzYxOS41MTAyMzYsImV4cCI6MTY4Mzk0OTYxOS41MDY0NTcsInN1YiI6Ijk4ZTkyNjQyLTZjOWQtNDYwNy1iN2ZhLTQyNGMxMzVkOWYzNyIsInNjb3BlcyI6W119.eTi_8AdLoqqiSPOS-PEF2ul_Tnh0a5m1CiH-ZtFz_yitDmuxWQzfqTD44Rr8W4heRCvRs48yz6A_kEdjX8DBGmOadz8iegCKpoHTghZIBFQi0YqHRLJiv9GZsNT7CsG0e-GCjQWfjBEFsfo-rnWBdoZM4QLNWKx9W6KI3nSe5EGNqqbCtZiukavFcXP2GaP-ZFt4x8ubTWHQvNZci15t8JVSIBPdoCKLErZXCgxe4hQveFzJuvRIIqoP7KPx34wj-3H4m3XAeO1T6FqSLQvb0MrUuRwnN2HJY3bp8kQ8TBM68XJVasLlQFMMTm2msF3-GapXYECOEkOt5nUhwbX1_dzYw4cneMjl7V262cetF9wt3VcSAquhdvJdpMjk9C79cfMcLMrXLTfGuQnSspF4U9r-9J5IH5R3ytb1M5L7YGbuXceZ5QlIHk3nIE2ziCI7mgck8NcCgN0vyFYIdzAweBG47fHuU3Z8pEn0HBwK6ib1RdH0fw2-S00Qyv5PkjIYrIOLk3TlgPAP4-Aa8s5tsxPOGUPRf-QssWrWGdQiW0Fyuf2aIFzksfYnrqYu5803KwHuVw7aeOpCEswKgpIgvRJ8xtJp8-SbFlM5cgHE9MzbNETEMo6kSAahdtbin6WdGy-hUWHhMBulq8GWOrB1nAhkDnnTs019BTz0HV6XMCo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/logout",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"base_access_token\", data.access_token);",
+									"postman.setEnvironmentVariable(\"base_refresh_token\", data.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\":\"password\",\n    \"client_id\": \"992fd002-229e-4667-ad8e-43dc783145b0\",\n    \"client_secret\" :\"vlbZZ0RNglNJRGIBXHWfsldbKbdzXXWYTDJqppPS\",\n    \"username\" : \"rizkipasaribu\",\n    \"password\" : \"12345678\",\n    \"scope\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_api_host}}/oauth/token",
+							"host": [
+								"{{base_api_host}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"base_access_token\", data.access_token);",
+									"postman.setEnvironmentVariable(\"base_refresh_token\", data.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\":\"refresh_token\",\n    \"client_id\": \"98e4f88b-66a9-4eea-882f-c6f9e6dc7531\",\n    \"client_secret\" : \"2GrmfmAZHMi9pyT94FWqQHPCYEk2KEG90YGiVaqb\",\n    \"refresh_token\":\"{{base_refresh_token}}\",\n    \"scope\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/oauth/token",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "Create Teacher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\":\"rizki Pasaribu\",\n    \"nid\":\"07022222007\",\n    \"alamat\":\"riau\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/teacher",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Teacher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/teacher/a0732751-a24d-403e-8636-ec1731c38b9e",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"teacher",
+								"a0732751-a24d-403e-8636-ec1731c38b9e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Teacher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\":\"rizki Pasaribu1dsafdsaf\",\n    \"nid\":\"0701192007\",\n    \"alamat\":\"medan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/teacher/a0732751-a24d-403e-8636-ec1731c38b9e",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"teacher",
+								"a0732751-a24d-403e-8636-ec1731c38b9e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All  Teacher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/teacher",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Teacher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/teacher/aeebbb39-6dcd-4db3-8de7-ec2151ba3191",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"teacher",
+								"aeebbb39-6dcd-4db3-8de7-ec2151ba3191"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Create Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\": \"rizki Pasaribu\",\n    \"nim\": \"0701192007\",\n    \"kelas\": \"ilkomp-1\",\n    \"alamat\": \"medan\",\n    \"teacher_id\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/student",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/student/4b2869e8-fe9c-48aa-9a07-deddd08bb2fe",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"student",
+								"4b2869e8-fe9c-48aa-9a07-deddd08bb2fe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\":\"rizki Pasaribu1\",\n    \"nim\":\"0701192007\",\n    \"kelas\":\"ilkomp-1\",\n    \"alamat\":\"medan\",\n    \"teacher_id\":\"f475e31e-c075-4c35-947a-93401f6cccf7\",\n    \"course_id\":\"f475e31e-c075-4c35-947a-93401f6cccf7\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/student/4b2869e8-fe9c-48aa-9a07-deddd08bb2fe",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"student",
+								"4b2869e8-fe9c-48aa-9a07-deddd08bb2fe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All  Student",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "limit",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost/api/student",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"student"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "25",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/student/2c77509a-8dd0-460c-86dd-0c8c91149eb3",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"student",
+								"2c77509a-8dd0-460c-86dd-0c8c91149eb3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "Create Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\":\"Course 1\",\n    \"code\":\"123213\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/course",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/course/57df7785-1424-45a3-b206-6b24d1921601",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"course",
+								"57df7785-1424-45a3-b206-6b24d1921601"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\":\"Course 3\",\n    \"code\":\"123213\",\n    \"student_id\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/course/57df7785-1424-45a3-b206-6b24d1921601",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"course",
+								"57df7785-1424-45a3-b206-6b24d1921601"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All  Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/course",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{base_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/course/57df7785-1424-45a3-b206-6b24d1921601",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"course",
+								"57df7785-1424-45a3-b206-6b24d1921601"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
