@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
+use App\Http\Resources\TeacherResource;
 use App\Repositories\TeacherRepository;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class TeacherController extends Controller
     public function index(Request $request)
     {
         $request->validate(['limit' => 'integer|max:200']);
-        return $this->teacherRepository->show_all_teacher($request->limit);
+        return TeacherResource::collection($this->teacherRepository->show_all_teacher());
     }
 
     /**

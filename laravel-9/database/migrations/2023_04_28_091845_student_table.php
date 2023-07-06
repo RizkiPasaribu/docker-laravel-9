@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nim');
             $table->string('kelas');
             $table->string('alamat');
+            $table->string('photo')->nullable();
             $table->uuid('teacher_id')->nullable();
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->softDeletes()->nullable();

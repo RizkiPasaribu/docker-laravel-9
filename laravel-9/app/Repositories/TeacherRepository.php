@@ -14,7 +14,7 @@ class TeacherRepository{
      */
     public function show_all_teacher($limit = 25)
     {
-        return Teacher::with('student')->paginate($limit);
+        return Teacher::all();
     }
 
     /**

@@ -17,9 +17,9 @@ class StudentRepository
      * @param  Integer $limit
      * @return \App\Models\Student
      */
-    public function show_all_student($limit = 25,)
+    public function show_all_student($limit = 25)
     {
-        return Student::with('courses')->paginate($limit);
+        return Student::paginate($limit);
     }
 
 
@@ -31,8 +31,17 @@ class StudentRepository
      */
     public function store(StudentRequest $request)
     {
-        $validator = $request->validated();
-        return response()->create(Student::create($validator));
+        $file = $request->photo->store('images','public');
+        $student = new Student;
+        $student->nama = $request->nama;
+        $student->kelas = $request->kelas;
+        $student->nim = $request->nim;
+        $student->alamat = $request->alamat;
+        $student->photo = $file;
+        $student->teacher_id = $request->teacher_id;
+        $student->courses()->attach($request->course_id);
+        $student->save();
+        return response()->create($student);
     }
 
     /**

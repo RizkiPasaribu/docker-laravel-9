@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class StudentRequest extends FormRequest
 {
@@ -27,6 +28,7 @@ class StudentRequest extends FormRequest
             'nama' => 'required',
             'nim' => 'required',
             'kelas' => 'required',
+            'photo' =>File::image()->max(12 * 1024),
             'alamat' => 'required',
             'teacher_id' => 'nullable'
         ];

@@ -7,6 +7,7 @@ use App\Http\Requests\StudentRequest;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 
+use App\Http\Resources\StudentResource;
 class StudentController extends Controller
 {
     /**
@@ -28,7 +29,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $request->validate(['limit' => 'integer|max:200']);
-        return $this->studentRepo->show_all_student($request->limit);
+        return StudentResource::collection($this->studentRepo->show_all_student($request->limit));
     }
 
     /**
