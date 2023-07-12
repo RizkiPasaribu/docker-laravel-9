@@ -29,7 +29,7 @@ class Course extends Model
      */
     protected $hidden = [
         'deleted_at',
-        // 'pivot'
+        'pivot'
     ];
 
     /**

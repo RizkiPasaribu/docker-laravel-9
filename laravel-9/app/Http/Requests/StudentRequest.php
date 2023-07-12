@@ -28,9 +28,9 @@ class StudentRequest extends FormRequest
             'nama' => 'required',
             'nim' => 'required',
             'kelas' => 'required',
-            'photo' =>File::image()->max(12 * 1024),
             'alamat' => 'required',
-            'teacher_id' => 'nullable'
+            'teacher_id' => 'nullable',
+            'photo' =>File::image()->max(12 * 1024),
         ];
     }
 

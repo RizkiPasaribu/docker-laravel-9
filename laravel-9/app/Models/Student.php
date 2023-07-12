@@ -34,7 +34,7 @@ class Student extends Model
      */
     protected $hidden = [
         'deleted_at',
-        // 'privot'
+        'privot'
     ];
 
     /**

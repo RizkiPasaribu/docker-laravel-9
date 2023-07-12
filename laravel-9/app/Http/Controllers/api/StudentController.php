@@ -62,7 +62,7 @@ class StudentController extends Controller
      * @param \App\Http\Requests\StudentRequest $request
      * @return App\Repositories\StudentRepository $studentRepo
      */
-    public function update($student_id, StudentRequest $request)
+    public function update(StudentRequest $request, $student_id)
     {
         return $this->studentRepo->update($student_id, $request);
     }

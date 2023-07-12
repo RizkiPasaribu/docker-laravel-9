@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Http\Requests\StudentRequest;
-use App\Models\Course;
+use App\Http\Resources\StudentResource;
 use App\Models\Student;
-use App\Models\Teacher;
+use Illuminate\Support\Facades\Storage;
 
 class StudentRepository
 {
@@ -31,7 +31,11 @@ class StudentRepository
      */
     public function store(StudentRequest $request)
     {
-        $file = $request->photo->store('images','public');
+        // handle file photo
+        $file = null;
+        if ($request->photo)$file = $request->photo->store('images','public');
+
+        // store
         $student = new Student;
         $student->nama = $request->nama;
         $student->kelas = $request->kelas;
@@ -39,9 +43,8 @@ class StudentRepository
         $student->alamat = $request->alamat;
         $student->photo = $file;
         $student->teacher_id = $request->teacher_id;
-        $student->courses()->attach($request->course_id);
         $student->save();
-        return response()->create($student);
+        return response()->create(new StudentResource($student));
     }
 
     /**
@@ -54,19 +57,23 @@ class StudentRepository
     public function update($student_id, StudentRequest $request)
     {
         $student = Student::find($student_id);
-        $teacher = Teacher::find($request->teacher_id);
-        $course = Course::find($request->course_id);
-        if (!$student || !$teacher || !$course) {
+        // handle file photo
+        $file = null;
+        if ($request->photo)$file = $request->photo->store('images','public');
+        if (!$student) {
             return response()->not_found("Student, Teacher and Course");
         } else {
+            // deleted photo
+            Storage::delete('public/'.$student->photo);
+
             $student->nama = $request->nama;
             $student->kelas = $request->kelas;
             $student->nim = $request->nim;
             $student->alamat = $request->alamat;
+            $student->photo = $file;
             $student->teacher_id = $request->teacher_id;
-            $student->courses()->attach($request->course_id);
             $student->save();
-            return response()->updated($student);
+            return response()->updated(new StudentResource($student));
         }
     }
 
@@ -99,7 +106,7 @@ class StudentRepository
         if (!$student) {
             return response()->not_found("Student");
         } else {
-            return response()->json($student);
+            return response()->json(new StudentResource($student));
         }
     }
 }
