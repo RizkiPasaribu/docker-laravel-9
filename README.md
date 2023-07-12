@@ -10,9 +10,14 @@
 - php artisan passport:install --uuids
 - php artisan db:seed --class=DatabaseSeeder
 
-# Catatan rizki
+# Apa Apa Saja Hal Baru Yang Telah Di Pelajari Rizki
 
-- Macros berguna untuk mengatur semua respon json yang di atur app provider service
+- Has uuid
+- DI
+- Soft delete
+- Macros
 - Many to many
 - one to many
 - Service Container
+- resources
+- Handle File Storage
